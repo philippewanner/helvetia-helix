@@ -1,3 +1,6 @@
+# Documentation
+[Miro board](https://miro.com/app/board/o9J_l4OEYps=/)
+
 # Install (macOS)
 `brew install --cask docker`
 
@@ -11,4 +14,4 @@ Build docker image
 Run docker image
 `docker run -p8081:8081 -it helix`
 
-Swagger is accessible under: `http://localhost:8081/swagger-ui/index.html`
+Swagger is accessible under: [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
