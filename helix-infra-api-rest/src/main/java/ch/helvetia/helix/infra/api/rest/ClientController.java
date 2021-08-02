@@ -1,15 +1,12 @@
 package ch.helvetia.helix.infra.api.rest;
 
 import ch.helvetia.helix.api.ClientService;
-import ch.helvetia.helix.core.Client;
-import ch.helvetia.helix.core.InsurancePolicy;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Validate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
