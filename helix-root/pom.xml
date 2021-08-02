@@ -29,6 +29,10 @@
             <groupId>ch.helvetia.helix</groupId>
             <artifactId>helix-infra-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ch.helvetia.helix</groupId>
+            <artifactId>helix-infra-remote</artifactId>
+        </dependency>
         <!-- External dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

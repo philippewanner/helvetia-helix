@@ -1,9 +1,6 @@
 package ch.helvetia.helix.api;
 
-import ch.helvetia.helix.core.Client;
-import ch.helvetia.helix.core.ClientRepository;
-import ch.helvetia.helix.core.InsurancePolicy;
-import ch.helvetia.helix.core.InsurancePolicyRepository;
+import ch.helvetia.helix.core.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +23,9 @@ public class ClientServiceTest {
     private ClientRepository clientRepository;
 
     @Mock
+    private ClientLegacy clientLegacy;
+
+    @Mock
     private InsurancePolicyRepository policyRepository;
 
     private ClientService clientService;
@@ -38,7 +38,7 @@ public class ClientServiceTest {
     @BeforeEach
     void setUp(){
         reset(clientRepository);
-        clientService = new ClientService(clientRepository, policyRepository);
+        clientService = new ClientService(clientRepository, clientLegacy, policyRepository);
     }
 
     @Test

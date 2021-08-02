@@ -15,6 +15,7 @@
         <module>helix-api</module>
         <module>helix-infra-jpa</module>
         <module>helix-infra-api-rest</module>
+        <module>helix-infra-remote</module>
         <module>helix-root</module>
     </modules>
 
@@ -30,7 +31,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <main.basedir>${project.basedir}</main.basedir>
-        <slf4j.version>1.7.8</slf4j.version>
+        <slf4j.version>1.7.32</slf4j.version>
         <springfox.version>3.0.0</springfox.version>
     </properties>
 
@@ -50,6 +51,11 @@
             <dependency>
                 <groupId>ch.helvetia.helix</groupId>
                 <artifactId>helix-infra-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.helvetia.helix</groupId>
+                <artifactId>helix-infra-remote</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -67,7 +67,7 @@ public class ClientController {
     @ApiOperation(value = "Get all client with their insurance policies", produces = "application/json")
     @GetMapping("/")
     ResponseEntity<?> getAllClient() {
-        return ok().body(clientService.getAllClients());
+        return ok().body(clientService.reliableGetAllClients());
     }
 
     @ApiOperation(value = "Get client with given id and its respective insurance policy", produces = "application/json")
