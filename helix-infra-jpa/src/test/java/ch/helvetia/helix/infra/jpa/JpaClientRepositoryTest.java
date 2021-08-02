@@ -2,6 +2,7 @@ package ch.helvetia.helix.infra.jpa;
 
 import ch.helvetia.helix.core.Client;
 import ch.helvetia.helix.core.ClientRepository;
+import ch.helvetia.helix.core.InsurancePolicy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,8 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DataJpaTest
 public class JpaClientRepositoryTest {
 
-    private final Client client0 = Client.of("firstName0", "lastName0");
-    private final Client client1 = Client.of("firstName1", "lastName1");
+    private final InsurancePolicy policy0 = InsurancePolicy.of("policy0", 10.0);
+    private final InsurancePolicy policy1 = InsurancePolicy.of( "policy1", 230.0);
+    private final Client client0 = Client.of("firstName0", "lastName0", Set.of(policy0.getId()));
+    private final Client client1 = Client.of("firstName1", "lastName1", Set.of(policy1.getId(), policy0.getId()));
 
     @Autowired
     private ClientRepository clientRepository;

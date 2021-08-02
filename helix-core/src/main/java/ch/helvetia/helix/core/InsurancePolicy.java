@@ -18,10 +18,6 @@ public class InsurancePolicy {
 
     @Column(nullable = false)
     @Setter(AccessLevel.PRIVATE)
-    private UUID clientId;
-
-    @Column(nullable = false)
-    @Setter(AccessLevel.PRIVATE)
     private String name;
 
     @Column(nullable = false)

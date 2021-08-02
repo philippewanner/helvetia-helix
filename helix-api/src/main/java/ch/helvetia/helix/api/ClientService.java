@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -27,7 +28,7 @@ public class ClientService {
 
     @Transactional
     public UUID createClient(String firstName, String lastNAme){
-        Client client = Client.of(firstName, lastNAme);
+        final Client client = Client.of(firstName, lastNAme, Set.of());
         clientRepository.save(client);
         log.info("Client with ID <"+client.getId()+"> created.");
         return client.getId();
@@ -39,27 +40,16 @@ public class ClientService {
         log.info("Client with Id <"+clientId+"> deleted.");
     }
 
-    @Transactional
-    public void deletePolicyWithId(UUID policyId) {
-        insurancePolicyRepository.deleteById(policyId);
-        log.info("Policy with Id <"+policyId+"> deleted.");
-    }
-
     @Transactional(readOnly = true)
     public Client getClientById(UUID clientId){
         return clientRepository.findByIdOrThrow(clientId);
     }
 
-    @Transactional(readOnly = true)
-    public InsurancePolicy getPolicyById(UUID policyId){
-        return insurancePolicyRepository.findByIdOrThrow(policyId);
-    }
-
-    @Transactional
-    public UUID addPolicyToClient(UUID clientId, String policyName, Double policyPrice){
-        InsurancePolicy policy = InsurancePolicy.of(clientId, policyName, policyPrice);
-        insurancePolicyRepository.save(policy);
-        log.info("Insurance policy with ID <"+policy.getId()+"> was created for client with ID <"+clientId+">.");
-        return policy.getId();
-    }
+    //@Transactional
+    //public UUID addPolicyToClient(UUID clientId, String policyName, Double policyPrice){
+    //    InsurancePolicy policy = InsurancePolicy.of(clientId, policyName, policyPrice);
+    //    insurancePolicyRepository.save(policy);
+    //    log.info("Insurance policy with ID <"+policy.getId()+"> was created for client with ID <"+clientId+">.");
+    //    return policy.getId();
+    //}
 }

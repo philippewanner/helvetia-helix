@@ -3,8 +3,11 @@ package ch.helvetia.helix.core;
 import lombok.*;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -23,4 +26,9 @@ public class Client {
     @Column(nullable = false)
     @Setter(AccessLevel.PRIVATE)
     private String lastName;
+
+    @Column(nullable = false)
+    @Setter(AccessLevel.PRIVATE)
+    @ElementCollection(targetClass = UUID.class)
+    private Set<UUID> policyIds = new HashSet<>();
 }

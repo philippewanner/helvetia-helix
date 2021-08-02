@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DataJpaTest
 public class JpaInsurancePolicyRepositoryTest {
 
-    private final InsurancePolicy policy0 = InsurancePolicy.of(UUID.randomUUID(), "policy0", 10.0);
-    private final InsurancePolicy policy1 = InsurancePolicy.of(UUID.randomUUID(), "policy1", 230.0);
+    private final InsurancePolicy policy0 = InsurancePolicy.of("policy0", 10.0);
+    private final InsurancePolicy policy1 = InsurancePolicy.of( "policy1", 230.0);
 
     @Autowired
     private InsurancePolicyRepository policyRepository;
