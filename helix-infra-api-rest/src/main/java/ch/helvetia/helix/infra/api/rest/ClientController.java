@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +41,7 @@ public class ClientController {
 
         UriComponents uriComponents = uriComponentsBuilder
                 .path(BASE_URI + "/") //
-                .buildAndExpand(clientService.createClient(firstname, lastname));
+                .buildAndExpand(clientService.reliableCreateClient(firstname, lastname));
         return created(uriComponents.toUri()).build();
     }
 

@@ -6,7 +6,6 @@ import ch.helvetia.helix.core.ClientRepository;
 import ch.helvetia.helix.core.InsurancePolicyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
@@ -31,19 +30,39 @@ public class ClientService {
             maxAttempts = 2,
             backoff = @Backoff(delay = 1000))
     public List<Client> reliableGetAllClients() {
-        log.info("Retryable method was called.");
-        return clientLegacy.getAllClientsRemote();
+        log.info("Retryable get all clients method was called.");
+        List<Client> clients = clientLegacy.getAllClientsRemote();
+        clients.forEach(clientRepository::save);
+        return clients;
     }
 
     @Recover
     public List<Client> getAllClients(RuntimeException e) {
-        log.info("Fallback/Recover method was called.");
+        log.info("Fallback/Recover method getAllClient was called.");
         return this.getAllClients();
     }
 
     @Transactional(readOnly = true)
     public List<Client> getAllClients() {
         return clientRepository.findAll();
+    }
+
+    @Retryable(
+            value = {RuntimeException.class},
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 500))
+    public UUID reliableCreateClient(String firstName, String lastNAme) {
+        log.info("Retryable create client method was called.");
+        final Client client = Client.of(firstName, lastNAme, Set.of());
+        clientLegacy.createClient(client);
+        clientRepository.save(client);
+        return client.getId();
+    }
+
+    @Recover
+    public UUID createClient(RuntimeException e, String firstName, String lastNAme) {
+        log.info("Fallback/Recover method createClient was called.");
+        return this.createClient(firstName, lastNAme);
     }
 
     @Transactional

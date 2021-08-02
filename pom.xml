@@ -17,6 +17,7 @@
         <module>helix-infra-api-rest</module>
         <module>helix-infra-remote</module>
         <module>helix-root</module>
+        <module>legacy-client</module>
     </modules>
 
     <parent>
