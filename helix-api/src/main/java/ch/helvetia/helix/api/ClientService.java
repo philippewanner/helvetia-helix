@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -45,11 +46,23 @@ public class ClientService {
         return clientRepository.findByIdOrThrow(clientId);
     }
 
-    //@Transactional
-    //public UUID addPolicyToClient(UUID clientId, String policyName, Double policyPrice){
-    //    InsurancePolicy policy = InsurancePolicy.of(clientId, policyName, policyPrice);
-    //    insurancePolicyRepository.save(policy);
-    //    log.info("Insurance policy with ID <"+policy.getId()+"> was created for client with ID <"+clientId+">.");
-    //    return policy.getId();
-    //}
+    @Transactional
+    public UUID addPolicyToClient(UUID clientId, UUID policyId){
+        insurancePolicyRepository.findByIdOrThrow(policyId);
+        Client client = clientRepository.findByIdOrThrow(clientId);
+        client.getPolicyIds().add(policyId);
+        clientRepository.save(client);
+        log.info("Insurance policy with ID <"+policyId+"> was added for client with ID <"+clientId+">.");
+        return policyId;
+    }
+
+    @Transactional
+    public UUID removePolicyFromClient(UUID clientId, UUID policyId){
+        insurancePolicyRepository.findByIdOrThrow(policyId);
+        Client client = clientRepository.findByIdOrThrow(clientId);
+        client.getPolicyIds().remove(policyId);
+        clientRepository.save(client);
+        log.info("Insurance policy with ID <"+policyId+"> was removed from client with ID <"+clientId+">.");
+        return policyId;
+    }
 }

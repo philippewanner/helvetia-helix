@@ -46,6 +46,24 @@ public class ClientController {
         return created(uriComponents.toUri()).build();
     }
 
+    @ApiOperation(value = "Add policy to client", produces = "application/json")
+    @PostMapping("/{clientId}/policy/{policyId}")
+    ResponseEntity<?> addPolicyToClient(@PathVariable UUID clientId,
+                                        @PathVariable UUID policyId) {
+        Validate.notNull(clientId, "Missing mandatory input parameter: clientId");
+        Validate.notNull(policyId, "Missing mandatory input parameter: policyId");
+        return ok().body(clientService.addPolicyToClient(clientId, policyId));
+    }
+
+    @ApiOperation(value = "Remove policy from client", produces = "application/json")
+    @DeleteMapping("/{clientId}/policy/{policyId}")
+    ResponseEntity<?> removePolicyFromClient(@PathVariable UUID clientId,
+                                             @PathVariable UUID policyId) {
+        Validate.notNull(clientId, "Missing mandatory input parameter: clientId");
+        Validate.notNull(policyId, "Missing mandatory input parameter: policyId");
+        return ok().body(clientService.removePolicyFromClient(clientId, policyId));
+    }
+
     @ApiOperation(value = "Get all client with their insurance policies", produces = "application/json")
     @GetMapping("/")
     ResponseEntity<?> getAllClient() {
@@ -61,7 +79,7 @@ public class ClientController {
 
     @ApiOperation(value = "Delete client with given id and its respective insurance policy", produces = "application/json")
     @DeleteMapping("/{clientId}")
-    ResponseEntity<?> removeClient(@PathVariable UUID clientId){
+    ResponseEntity<?> removeClient(@PathVariable UUID clientId) {
         Validate.notNull(clientId, "Missing mandatory input parameter: clientId");
         clientService.deleteClientWithId(clientId);
         return new ResponseEntity<>(HttpStatus.OK);

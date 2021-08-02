@@ -35,7 +35,7 @@ public class PolicyController {
             @RequestParam Double price) {
 
         Validate.noNullElements(Arrays.asList(name, price),
-                "Invalid input parameter/-s: policyName=%s, price=%f",
+                "Invalid input parameter/-s: name=%s, price=%f",
                 name, price);
 
         Validate.isTrue(price >= 1.0, "The price has to be greater or equal to 1");
@@ -55,15 +55,14 @@ public class PolicyController {
     }
 
     @ApiOperation(value = "Get policy with given id", produces = "application/json")
-    @GetMapping("/{clientId}/insurance-policy/{policyId}")
-    ResponseEntity<?> getPolicy(@PathVariable UUID clientId, //
-                                @PathVariable UUID policyId) {
+    @GetMapping("/{policyId}")
+    ResponseEntity<?> getPolicy(@PathVariable UUID policyId) {
         Validate.notNull(policyId, "Missing mandatory input parameter: policyId");
         return ok().body(policyService.getPolicyById(policyId));
     }
 
     @ApiOperation(value = "Delete policy with given id", produces = "application/json")
-    @DeleteMapping("/{clientId}/insurance-policy/{policyId}")
+    @DeleteMapping("/{policyId}")
     ResponseEntity<?> removePolicy(@PathVariable UUID policyId) {
         Validate.notNull(policyId, "Missing mandatory input parameter: policyId");
         policyService.deletePolicyWithId(policyId);
