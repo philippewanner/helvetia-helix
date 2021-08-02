@@ -1,0 +1,39 @@
+<div *ngIf="customer">
+  <h1>
+    Customer: {{ customer.firstName | capitalize }}
+    {{ customer.lastName | capitalize }}
+    <button class="btn btn-danger" (click)="removeClient()">
+      Remove Profile
+    </button>
+  </h1>
+
+  <table class="table table-hover customer-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Active</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let policy of policyList">
+      <td>{{ policy.name }}</td>
+      <td>{{ policy.price }}</td>
+      <td *ngIf="customer.policyIds.includes(policy.id)">✅</td>
+      <td *ngIf="!customer.policyIds.includes(policy.id)">❌</td>
+      <td *ngIf="customer.policyIds.includes(policy.id)">
+        <button class="btn btn-danger" (click)="removePolicy(policy.id)">
+          remove
+        </button>
+      </td>
+      <td *ngIf="!customer.policyIds.includes(policy.id)">
+        <button class="btn btn-success" (click)="addPolicy(policy.id)">
+          add
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="!customer">No customer found</div>
+<br />
+<a routerLink="/customers">View All Customers</a>

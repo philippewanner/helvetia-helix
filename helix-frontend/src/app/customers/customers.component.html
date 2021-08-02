@@ -1,0 +1,12 @@
+<h1>{{ title }}</h1>
+<br />
+<app-customers-list
+  [customers]="people"
+  [policyList]="insurancePolicyList"
+></app-customers-list>
+<br />
+<app-new-customer (newItemEvent)="addCustomer($event)"></app-new-customer>
+
+<app-new-insurance-policy
+  (newItemEvent)="addInsurancePolicy($event)"
+></app-new-insurance-policy>

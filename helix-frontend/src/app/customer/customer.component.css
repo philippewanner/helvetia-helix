@@ -1,0 +1,8 @@
+.customer-table {
+  margin-top: 20px;
+}
+
+h1 {
+  display: flex;
+  justify-content: space-between;
+}
